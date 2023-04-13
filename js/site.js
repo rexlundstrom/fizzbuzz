@@ -41,3 +41,4 @@ const displayFizzBuzz = (str) => {
   let tableBody = document.getElementById("results");
   tableBody.innerHTML = str;
 };
+
