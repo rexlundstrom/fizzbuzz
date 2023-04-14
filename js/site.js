@@ -19,21 +19,26 @@ const getValues = () => {
 };
 
 // business/logic function
-const generateFizzBuzz = (start, end, counter = 100) => {
-  let results = "";
-
-  for (let i = 1; i <= counter; i++) {
-    if (i % start === 0 && i % end === 0) {
-      results += `<td class="fizzbuzz">FizzBuzz</td>`;
-    } else if (i % start === 0) {
-      results += `<td class="fizz">Fizz</td>`;
-    } else if (i % end === 0) {
-      results += `<td class="buzz">Buzz</td>`;
-    } else {
-      results += `<td>${i}</td>`;
-    }
+const generateFizzBuzz = (fizz, buzz, maximum = 100, counter = 1, results = "") => {
+  // check fizzbuzz conditions, add corresponding string to results
+  if (counter % fizz === 0 && counter % buzz === 0) {
+    results += `<td class="fizzbuzz">FizzBuzz</td>`;
+  } else if (counter % fizz === 0) {
+    results += `<td class="fizz">Fizz</td>`;
+  } else if (counter % buzz === 0) {
+    results += `<td class="buzz">Buzz</td>`;
+  } else {
+    results += `<td>${counter}</td>`;
   }
-  return results;
+
+  // if counter is equal to maximum, return results
+  if (counter === maximum) {
+    return results;
+  } else {
+    // increment and recurse
+    counter++;
+    return generateFizzBuzz(fizz, buzz, maximum, counter, results);
+  }
 };
 
 // view function
@@ -41,4 +46,3 @@ const displayFizzBuzz = (str) => {
   let tableBody = document.getElementById("results");
   tableBody.innerHTML = str;
 };
-
