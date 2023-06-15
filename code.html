@@ -126,21 +126,26 @@ const getValues = () => {
 };
 
 // business/logic function
-const generateFizzBuzz = (start, end, counter = 100) => {
-  let results = "";
-
-  for (let i = 1; i <= counter; i++) {
-    if (i % start === 0 && i % end === 0) {
-      results += `<td class="fizzbuzz">FizzBuzz</td>`;
-    } else if (i % start === 0) {
-      results += `<td class="fizz">Fizz</td>`;
-    } else if (i % end === 0) {
-      results += `<td class="buzz">Buzz</td>`;
-    } else {
-      results += `<td>${i}</td>`;
-    }
+const generateFizzBuzz = (fizz, buzz, maximum = 100, counter = 1, results = "") => {
+  // check fizzbuzz conditions, add corresponding string to results
+  if (counter % fizz === 0 && counter % buzz === 0) {
+    results += `<td class="fizzbuzz">FizzBuzz</td>`;
+  } else if (counter % fizz === 0) {
+    results += `<td class="fizz">Fizz</td>`;
+  } else if (counter % buzz === 0) {
+    results += `<td class="buzz">Buzz</td>`;
+  } else {
+    results += `<td>${counter}</td>`;
   }
-  return results;
+
+  // if counter is equal to maximum, return results
+  if (counter === maximum) {
+    return results;
+  } else {
+    // increment and recurse
+    counter++;
+    return generateFizzBuzz(fizz, buzz, maximum, counter, results);
+  }
 };
 
 // view function
@@ -154,9 +159,50 @@ const displayFizzBuzz = (str) => {
           </pre>
         </div>
         <div class="col-12 col-lg-4">
-          <p>The code is structured in one function</p>
-          <h5>displayMessage</h5>
-          <p>prints out the message</p>
+          <p>
+            There are three key functions that make this program run properly:
+          </p>
+          <h5>getValues</h5>
+          <p>
+            This function searches our HTML by ID for corresponding values that
+            the user enters.
+          </p>
+          <h5>generateFizzBuzz</h5>
+          <p>
+            This is the meat and bones of our app. All of the logic determining
+            how to count to the maximum number and how to replace certain
+            numbers with different words lies here.
+            <br /><br />
+            I have done this challenge several times previously, so in order to
+            make it a bit trickier, traditional loops are not used here.
+            Instead, a strategy of "recursion" is used to count.
+            <br /><br />
+            normally a function has some logic and a return statement for an
+            output i.e. "return a + b;" But a recursive function returns itself.
+            It calls it's own function name to run again and again and again.
+            <br /><br />
+            In order to stop it from running until the application crashes, it's
+            necessary to have a counter as well as a stopping condition. for
+            example, if you had a counter set to 1, say your function increases
+            the counter by one each time it runs, and you declare in your
+            function "if the counter is ever equal to the number 3, stop
+            recursing and do something else." you'll successfully escape the
+            infinite loop after three times.
+          </p>
+
+          <h5>displayString</h5>
+          <p>
+            This function is simply here to show off the output onto the website
+            for the user. It looks for an empty table to send the output table
+            cells, and pastes the results as a number or string of text one by
+            one.
+          </p>
+          <p>
+            Together, these functions keep each piece of complexity separate, so
+            that it is easy to read, understand, and manipulate. I found this to
+            be a fun challenge, and it's part of why JavaScript has a special
+            place in my heart as a quirky yet sophisticated language.
+          </p>
         </div>
       </div>
     </main>
